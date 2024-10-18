@@ -23,4 +23,9 @@ class UserController extends Controller
     {
         return new UserResource(auth()->user());
     }
+
+    public function show(User $user)
+    {
+        return new UserResource($user);
+    }
 }
