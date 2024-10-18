@@ -16,7 +16,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->role !== User::ADMIN) {
+        if (auth()->check() && auth()->user()->role !== User::ADMIN) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
