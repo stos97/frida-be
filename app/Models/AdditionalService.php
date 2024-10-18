@@ -13,4 +13,9 @@ class AdditionalService extends Model
         'name',
         'type',
     ];
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
 }

@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('services', [ServiceController::class, 'store'])->middleware(AdminMiddleware::class)->name('services.store');
     Route::put('services/{service}', [ServiceController::class, 'update'])->middleware(AdminMiddleware::class)->name('services.update');
     Route::delete('services/{service}', [ServiceController::class, 'destroy'])->middleware(AdminMiddleware::class)->name('services.destroy');
+    Route::post('services/{service}/additional-service', [ServiceController::class, 'addAdditionalService'])->name('services.addAdditionalService');
 
     Route::get('additional-services', [AdditionalServiceController::class, 'index'])->name('additional-services.index');
     Route::get('additional-services/{additionalService}', [AdditionalServiceController::class, 'show'])->name('additional-services.show');
