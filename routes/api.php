@@ -15,7 +15,8 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
 });
 
 Route::get('/user', function (Request $request) {
