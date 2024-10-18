@@ -23,4 +23,12 @@ class Service extends Model
     {
         return $this->belongsToMany(AdditionalService::class);
     }
+
+    public function workers()
+    {
+        return $this
+            ->belongsToMany(User::class, 'service_worker', 'service_id', 'worker_id')
+            ->using(ServiceWorker::class)
+            ->withPivot(['price', 'minutesNeeded']);
+    }
 }
