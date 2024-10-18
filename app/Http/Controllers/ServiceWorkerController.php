@@ -24,7 +24,15 @@ class ServiceWorkerController extends Controller
             ]];
         });
 
-
         $worker->services()->sync($data);
+    }
+
+    public function index(User $worker)
+    {
+        $services = $worker->services()->get()->groupBy('category.name');
+
+        return response()->json([
+            'data' => $services,
+        ]);
     }
 }

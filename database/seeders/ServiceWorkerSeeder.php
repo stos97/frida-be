@@ -19,6 +19,14 @@ class ServiceWorkerSeeder extends Seeder
                 'price' => 100,
                 'minutesNeeded' => 100,
             ],
+            2 => [
+                'price' => 200,
+                'minutesNeeded' => 200,
+            ],
+            3 => [
+                'price' => 300,
+                'minutesNeeded' => 300,
+            ],
             4 => [
                 'price' => 400,
                 'minutesNeeded' => 400,
