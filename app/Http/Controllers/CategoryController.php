@@ -12,14 +12,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::with('services')->get();
 
         return CategoryResource::collection($categories);
     }
 
     public function show(Category $category)
     {
-        return new CategoryResource($category);
+        return new CategoryResource($category->load('services'));
     }
 
     public function store(CategoryStoreRequest $request)
