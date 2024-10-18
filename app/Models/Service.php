@@ -18,4 +18,9 @@ class Service extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function additionalServices()
+    {
+        return $this->belongsToMany(AdditionalService::class);
+    }
 }

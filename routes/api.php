@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdditionalServiceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
@@ -36,6 +37,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('services', [ServiceController::class, 'store'])->middleware(AdminMiddleware::class)->name('services.store');
     Route::put('services/{service}', [ServiceController::class, 'update'])->middleware(AdminMiddleware::class)->name('services.update');
     Route::delete('services/{service}', [ServiceController::class, 'destroy'])->middleware(AdminMiddleware::class)->name('services.destroy');
+    Route::post('services/{service}/additional-service', [ServiceController::class, 'addAdditionalService'])->name('services.addAdditionalService');
+
+    Route::get('additional-services', [AdditionalServiceController::class, 'index'])->name('additional-services.index');
+    Route::get('additional-services/{additionalService}', [AdditionalServiceController::class, 'show'])->name('additional-services.show');
+    Route::post('additional-services', [AdditionalServiceController::class, 'store'])->name('additional-services.store');
+    Route::put('additional-services/{additionalService}', [AdditionalServiceController::class, 'update'])->name('additional-services.update');
+    Route::delete('additional-services/{additionalService}', [AdditionalServiceController::class, 'destroy'])->name('additional-services.destroy');
 });
 
 Route::get('/user', function (Request $request) {

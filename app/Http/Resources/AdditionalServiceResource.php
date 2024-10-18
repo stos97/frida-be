@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceResource extends JsonResource
+class AdditionalServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class ServiceResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'type' => $this->type,
             'name' => $this->name,
-            'category' => new CategoryResource($this->whenLoaded('category')),
-            'additional_services' => AdditionalServiceResource::collection($this->whenLoaded('additionalServices')),
         ];
     }
 }

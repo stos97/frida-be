@@ -12,14 +12,14 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::with('category')->get();
+        $services = Service::with('category', 'additionalServices')->get();
 
         return ServiceResource::collection($services);
     }
 
     public function show(Service $service)
     {
-        return new ServiceResource($service->load('category'));
+        return new ServiceResource($service->load('category', 'additionalServices'));
     }
 
     public function store(ServiceStoreRequest $request)
@@ -41,5 +41,16 @@ class ServiceController extends Controller
         $service->delete();
 
         return response()->noContent();
+    }
+
+    public function addAdditionalService(Request $request, Service $service)
+    {
+        $data = $request->validate([
+            'additional_service' => ['required', 'array'],
+        ]);
+
+        $service->additionalServices()->sync($data['additional_service']);
+
+        return new ServiceResource($service);
     }
 }
