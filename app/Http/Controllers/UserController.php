@@ -52,4 +52,17 @@ class UserController extends Controller
 
         return response()->noContent();
     }
+
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
+        ]);
+        $path = $request->file('image')->store('images/avatar', 'public');
+
+        $user = auth()->user();
+        $user->update(['image_path' => $path]);
+
+        return new UserResource($user);
+    }
 }
