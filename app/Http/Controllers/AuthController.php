@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,10 @@ class AuthController extends Controller
         $token = $user->createToken('access_token');
         $user['token'] = $token->plainTextToken;
 
-        return $user;
+        return response()->json([
+            'user' => new UserResource($user),
+            'access_token' => $token->plainTextToken
+        ]);
     }
 
     public function login(LoginRequest $request)
@@ -38,20 +42,16 @@ class AuthController extends Controller
         $token = $user->createToken('access_token');
         $user['token'] = $token->plainTextToken;
 
-        return $user;
+        return response()->json([
+            'user' => new UserResource($user),
+            'access_token' => $token->plainTextToken
+        ]);
     }
 
     public function logout()
     {
         auth()->user()->tokens()->delete();
 
-        return response()->json([
-            'status' => 'ok',
-        ]);
-    }
-
-    public function profile()
-    {
-        return auth()->user();
+        return response()->noContent();
     }
 }
