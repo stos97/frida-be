@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
     Route::put('users', [UserController::class, 'update'])->name('users.update');
     Route::post('users/upload-image', [UserController::class, 'uploadImage'])->name('users.uploadImage');
-    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy')->middleware(AdminMiddleware::class);
     Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
 });
 
