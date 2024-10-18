@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Http\Request;
@@ -30,6 +31,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('categories/{category}', [CategoryController::class, 'update'])->middleware(AdminMiddleware::class)->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->middleware(AdminMiddleware::class)->name('categories.destroy');
 
+    Route::get('services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('services/{service}', [ServiceController::class, 'show'])->name('services.show');
+    Route::post('services', [ServiceController::class, 'store'])->middleware(AdminMiddleware::class)->name('services.store');
+    Route::put('services/{service}', [ServiceController::class, 'update'])->middleware(AdminMiddleware::class)->name('services.update');
+    Route::delete('services/{service}', [ServiceController::class, 'destroy'])->middleware(AdminMiddleware::class)->name('services.destroy');
 });
 
 Route::get('/user', function (Request $request) {
