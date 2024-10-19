@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_worker', function (Blueprint $table) {
+        Schema::create('additional_service_workers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('worker_id')->constrained('users');
-            $table->foreignId('service_id')->constrained('services');
+            $table->foreignId('service_worker_id')->constrained('service_worker');
+            $table->foreignId('additional_service_id')->constrained('additional_services');
             $table->integer('price');
             $table->integer('minutesNeeded');
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_worker');
+        Schema::dropIfExists('additional_service_workers');
     }
 };

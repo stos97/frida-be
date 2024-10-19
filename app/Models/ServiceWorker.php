@@ -12,4 +12,9 @@ class ServiceWorker extends Pivot
         'price',
         'minutesNeeded',
     ];
+
+    public function additionalService()
+    {
+        return $this->hasMany(AdditionalService::class);
+    }
 }
