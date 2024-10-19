@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ServiceWorker\ServiceWorkerStoreRequest;
 use App\Models\ServiceWorker;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ServiceWorkerController extends Controller
 {
@@ -26,6 +28,23 @@ class ServiceWorkerController extends Controller
                 'minutesNeeded' => $additional_service['minutesNeeded'],
             ]);
         }
+
+        return response()->noContent();
+    }
+
+    public function destroy(Request $request, User $worker)
+    {
+        $data = $request->validate([
+            'service_id' => ['required', 'exists:services,id', function ($attribute, $value, $fail) use ($worker) {
+                if (!DB::table('service_worker')
+                    ->where('service_id', $value)
+                    ->where('worker_id', $worker->id)
+                    ->exists()) {
+                    $fail('The selected service is not associated worker.');
+                }
+            }],
+        ]);
+        $worker->services()->detach($data['service_id']);
 
         return response()->noContent();
     }
