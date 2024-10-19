@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -57,19 +58,27 @@ class User extends Authenticatable
         ];
     }
 
-    public function scopeFilter(Builder $query, array $filters = []): Builder
-    {
-        $query->when($filters['role'] ?? false, fn($query, $role) => $query->where('role', $role));
-
-        return $query;
-    }
-
-    public function services()
+    /**
+     * @return BelongsToMany
+     */
+    public function services(): BelongsToMany
     {
         return $this
             ->belongsToMany(Service::class, 'service_worker', 'worker_id', 'service_id')
             ->using(ServiceWorker::class)
             ->withPivot(['price', 'minutesNeeded']);
 
+    }
+
+    /**
+     * @param Builder $query
+     * @param array $filters
+     * @return Builder
+     */
+    public function scopeFilter(Builder $query, array $filters = []): Builder
+    {
+        $query->when($filters['role'] ?? false, fn($query, $role) => $query->where('role', $role));
+
+        return $query;
     }
 }
