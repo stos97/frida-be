@@ -17,4 +17,9 @@ class ServiceWorker extends Pivot
     {
         return $this->hasMany(AdditionalServiceWorker::class, 'service_worker_id');
     }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

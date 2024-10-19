@@ -32,7 +32,10 @@ class ServiceWorkerController extends Controller
 
     public function index(User $worker)
     {
-        $services = $worker->services()->get()->groupBy('category.name');
+        $services = ServiceWorker::with('service', 'service.category', 'additionalServices', 'additionalServices.additionalService')
+            ->where('worker_id', '=', $worker->id)
+            ->get()
+            ->groupBy('service.category.name');
 
         return response()->json([
             'data' => $services,

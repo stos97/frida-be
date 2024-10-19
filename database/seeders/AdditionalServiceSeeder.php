@@ -47,5 +47,10 @@ class AdditionalServiceSeeder extends Seeder
         $sizeS->services()->attach(3);
         $sizeM->services()->attach(3);
         $sizeL->services()->attach(3);
+
+        $sizeS->services()->attach(5);
+        $sizeM->services()->attach(5);
+        $sizeL->services()->attach(5);
+        $ombre->services()->attach(5);
     }
 }
