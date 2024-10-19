@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('additional_service_service', function (Blueprint $table) {
-            $table->primary(['service_id', 'additional_service_id']);
+        Schema::create('service_worker', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('worker_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('service_id')->constrained('services')->cascadeOnDelete();
-            $table->foreignId('additional_service_id')->constrained('additional_services')->cascadeOnDelete();
-            $table->timestamps();
+            $table->integer('price');
+            $table->integer('minutesNeeded');
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('additional_service_service');
+        Schema::dropIfExists('service_worker');
     }
 };

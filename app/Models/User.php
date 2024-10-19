@@ -63,4 +63,13 @@ class User extends Authenticatable
 
         return $query;
     }
+
+    public function services()
+    {
+        return $this
+            ->belongsToMany(Service::class, 'service_worker', 'worker_id', 'service_id')
+            ->using(ServiceWorker::class)
+            ->withPivot(['price', 'minutesNeeded']);
+
+    }
 }

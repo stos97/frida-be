@@ -4,6 +4,7 @@ use App\Http\Controllers\AdditionalServiceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceWorkerController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Http\Request;
@@ -44,6 +45,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('additional-services', [AdditionalServiceController::class, 'store'])->name('additional-services.store');
     Route::put('additional-services/{additionalService}', [AdditionalServiceController::class, 'update'])->name('additional-services.update');
     Route::delete('additional-services/{additionalService}', [AdditionalServiceController::class, 'destroy'])->name('additional-services.destroy');
+
+    Route::post('worker-service/{worker}', [ServiceWorkerController::class, 'store'])->name('worker-service.store');
+    Route::get('worker-service/{worker}', [ServiceWorkerController::class, 'index'])->name('worker-service.index');
 });
 
 Route::get('/user', function (Request $request) {
