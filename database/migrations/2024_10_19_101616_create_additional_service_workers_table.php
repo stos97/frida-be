@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('additional_service_id')->constrained('additional_services');
             $table->integer('price');
             $table->integer('minutesNeeded');
+            $table->timestamps();
         });
     }
 

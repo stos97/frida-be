@@ -2,29 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ServiceWorker\ServiceWorkerStoreRequest;
+use App\Models\ServiceWorker;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class ServiceWorkerController extends Controller
 {
-    public function store(Request $request, User $worker)
+    public function store(ServiceWorkerStoreRequest $request, User $worker)
     {
-        $data = $request->validate([
-            'services' => ['required', 'array'],
-            'services.*.service_id' => ['required', Rule::exists('services', 'id')],
-            'services.*.price' => ['required', 'integer'],
-            'services.*.minutesNeeded' => ['required', 'integer'],
+        $data = $request->validated();
+        $worker->services()->attach($data['service_id'], [
+            'price' => $data['price'],
+            'minutesNeeded' => $data['minutesNeeded'],
         ]);
 
-        $data = collect($data['services'])->mapWithKeys(function ($item) {
-            return [$item['service_id'] => [
-                'price' => $item['price'],
-                'minutesNeeded' => $item['minutesNeeded'],
-            ]];
-        });
+        $serviceWorker = ServiceWorker::where('worker_id', $worker->id)->where('service_id', $data['service_id'])->firstOrFail();
 
-        $worker->services()->sync($data);
+        foreach ($data['additional_services'] as $additional_service) {
+            $serviceWorker->additionalServices()->create([
+                'service_worker_id' => $serviceWorker->id,
+                'additional_service_id' => $additional_service['additional_service_id'],
+                'price' => $additional_service['price'],
+                'minutesNeeded' => $additional_service['minutesNeeded'],
+            ]);
+        }
+
+        return response()->noContent();
     }
 
     public function index(User $worker)

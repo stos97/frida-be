@@ -15,7 +15,7 @@ class AdditionalServiceWorker extends Model
 
     public function serviceWorker()
     {
-        return $this->belongsTo(ServiceWorker::class);
+        return $this->belongsTo(ServiceWorker::class, 'service_worker_id');
     }
 
     public function addtinaslService()
