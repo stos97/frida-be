@@ -19,9 +19,9 @@ class Service extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function additionalServices()
+    public function additions()
     {
-        return $this->belongsToMany(AdditionalService::class);
+        return $this->belongsToMany(Addition::class);
     }
 
     public function workers()
