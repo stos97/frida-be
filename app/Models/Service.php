@@ -3,28 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
     use SoftDeletes;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'name',
         'category_id',
     ];
 
-    public function category()
+    /**
+     * @return BelongsTo
+     */
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function additions()
+    /**
+     * @return BelongsToMany
+     */
+    public function additions(): BelongsToMany
     {
         return $this->belongsToMany(Addition::class);
     }
 
-    public function workers()
+    /**
+     * @return BelongsToMany
+     */
+    public function workers(): BelongsToMany
     {
         return $this
             ->belongsToMany(User::class, 'service_worker', 'service_id', 'worker_id')
