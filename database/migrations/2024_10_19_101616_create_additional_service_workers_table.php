@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('additional_service_workers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_worker_id')->constrained('service_worker');
-            $table->foreignId('additional_service_id')->constrained('additional_services');
+            $table->foreignId('service_worker_id')->constrained('service_worker')->cascadeOnDelete();
+            $table->foreignId('additional_service_id')->constrained('additional_services')->cascadeOnDelete();
             $table->integer('price');
             $table->integer('minutesNeeded');
             $table->timestamps();

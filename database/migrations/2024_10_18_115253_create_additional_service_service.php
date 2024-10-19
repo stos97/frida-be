@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('additional_service_service', function (Blueprint $table) {
             $table->primary(['service_id', 'additional_service_id']);
-            $table->foreignId('service_id')->constrained('services');
-            $table->foreignId('additional_service_id')->constrained('additional_services');
+            $table->foreignId('service_id')->constrained('services')->cascadeOnDelete();
+            $table->foreignId('additional_service_id')->constrained('additional_services')->cascadeOnDelete();
             $table->timestamps();
         });
     }

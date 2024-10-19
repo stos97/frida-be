@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('service_worker', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('worker_id')->constrained('users');
-            $table->foreignId('service_id')->constrained('services');
+            $table->foreignId('worker_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('service_id')->constrained('services')->cascadeOnDelete();
             $table->integer('price');
             $table->integer('minutesNeeded');
         });
