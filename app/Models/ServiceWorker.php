@@ -13,9 +13,9 @@ class ServiceWorker extends Pivot
         'minutesNeeded',
     ];
 
-    public function additionalServices()
+    public function additions()
     {
-        return $this->hasMany(AdditionalServiceWorker::class, 'service_worker_id');
+        return $this->hasMany(AdditionServiceWorker::class, 'service_worker_id');
     }
 
     public function service()

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\AdditionalService;
+namespace App\Http\Requests\Addition;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class AdditionalServiceStoreRequest extends FormRequest
+class AdditionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class AdditionalServiceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['required', 'string', Rule::in(['size', 'addition'])],
-            'name' => ['required', 'string'],
+            'type' => ['string', Rule::in(['size', 'addition'])],
+            'name' => ['string'],
         ];
     }
 }

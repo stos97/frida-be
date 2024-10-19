@@ -20,12 +20,12 @@ class ServiceWorkerController extends Controller
 
         $serviceWorker = ServiceWorker::where('worker_id', $worker->id)->where('service_id', $data['service_id'])->firstOrFail();
 
-        foreach ($data['additional_services'] as $additional_service) {
-            $serviceWorker->additionalServices()->create([
+        foreach ($data['additions'] as $addition) {
+            $serviceWorker->additions()->create([
                 'service_worker_id' => $serviceWorker->id,
-                'additional_service_id' => $additional_service['additional_service_id'],
-                'price' => $additional_service['price'],
-                'minutesNeeded' => $additional_service['minutesNeeded'],
+                'addition_id' => $addition['addition_id'],
+                'price' => $addition['price'],
+                'minutesNeeded' => $addition['minutesNeeded'],
             ]);
         }
 
@@ -51,7 +51,7 @@ class ServiceWorkerController extends Controller
 
     public function index(User $worker)
     {
-        $services = ServiceWorker::with('service', 'service.category', 'additionalServices', 'additionalServices.additionalService')
+        $services = ServiceWorker::with('service', 'service.category', 'additions', 'additions.addition')
             ->where('worker_id', '=', $worker->id)
             ->get()
             ->groupBy('service.category.name');

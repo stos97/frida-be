@@ -2,35 +2,35 @@
 
 namespace Database\Seeders;
 
-use App\Models\AdditionalService;
+use App\Models\Addition;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AdditionalServiceSeeder extends Seeder
+class AdditionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $sizeS = AdditionalService::create([
+        $sizeS = Addition::create([
             'type' => 'size',
             'name' => 'S',
         ]);
-        $sizeM = AdditionalService::create([
+        $sizeM = Addition::create([
             'type' => 'size',
             'name' => 'M',
         ]);
-        $sizeL = AdditionalService::create([
+        $sizeL = Addition::create([
             'type' => 'size',
             'name' => 'L',
         ]);
 
-        $frenc = AdditionalService::create([
+        $frenc = Addition::create([
             'type' => 'addition',
             'name' => 'Frenc',
         ]);
-        $ombre = AdditionalService::create([
+        $ombre = Addition::create([
             'type' => 'addition',
             'name' => 'Ombre',
         ]);

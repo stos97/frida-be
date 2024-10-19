@@ -26,22 +26,22 @@ class ServiceWorkerStoreRequest extends FormRequest
             'service_id' => ['required', 'exists:services,id'],
             'price' => ['required', 'integer'],
             'minutesNeeded' => ['required', 'integer'],
-            'additional_services' => ['array'],
-            'additional_services.*.additional_service_id' => [
+            'additions' => ['array'],
+            'additions.*.addition_id' => [
                 'integer',
-                'exists:additional_services,id',
+                'exists:additions,id',
                 function ($attribute, $value, $fail)  {
 
-                    if (!DB::table('additional_service_service')
+                    if (!DB::table('addition_service')
                         ->where('service_id', $this->request->get('service_id'))
-                        ->where('additional_service_id', $value)
+                        ->where('addition_id', $value)
                         ->exists()) {
-                        $fail('The selected additional service is not associated with the selected service.');
+                        $fail('The selected addition is not associated with the selected service.');
                     }
                 }
             ],
-            'additional_services.*.price' => ['integer'],
-            'additional_services.*.minutesNeeded' => ['integer'],
+            'additions.*.price' => ['integer'],
+            'additions.*.minutesNeeded' => ['integer'],
         ];
     }
 }

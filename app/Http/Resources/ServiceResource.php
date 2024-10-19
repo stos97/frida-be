@@ -18,7 +18,7 @@ class ServiceResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'category' => new CategoryResource($this->whenLoaded('category')),
-            'additional_services' => AdditionalServiceResource::collection($this->whenLoaded('additionalServices')),
+            'additions' => AdditionResource::collection($this->whenLoaded('additions')),
         ];
     }
 }
