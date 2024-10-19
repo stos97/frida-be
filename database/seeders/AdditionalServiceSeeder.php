@@ -13,26 +13,39 @@ class AdditionalServiceSeeder extends Seeder
      */
     public function run(): void
     {
-        AdditionalService::create([
+        $sizeS = AdditionalService::create([
             'type' => 'size',
             'name' => 'S',
         ]);
-        AdditionalService::create([
+        $sizeM = AdditionalService::create([
             'type' => 'size',
             'name' => 'M',
         ]);
-        AdditionalService::create([
+        $sizeL = AdditionalService::create([
             'type' => 'size',
             'name' => 'L',
         ]);
 
-        AdditionalService::create([
+        $frenc = AdditionalService::create([
             'type' => 'addition',
             'name' => 'Frenc',
         ]);
-        AdditionalService::create([
+        $ombre = AdditionalService::create([
             'type' => 'addition',
             'name' => 'Ombre',
         ]);
+
+        $sizeS->services()->attach(1);
+        $sizeM->services()->attach(1);
+        $sizeL->services()->attach(1);
+        $frenc->services()->attach(1);
+
+        $sizeS->services()->attach(2);
+        $sizeM->services()->attach(2);
+        $sizeL->services()->attach(2);
+
+        $sizeS->services()->attach(3);
+        $sizeM->services()->attach(3);
+        $sizeL->services()->attach(3);
     }
 }
