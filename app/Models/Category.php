@@ -10,6 +10,14 @@ class Category extends Model
 {
     use SoftDeletes;
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($category) {
+            $category->services()->delete();  // Soft delete related comments
+        });
+    }
+
     /**
      * @var string[]
      */
