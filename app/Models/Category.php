@@ -14,7 +14,7 @@ class Category extends Model
     {
         parent::boot();
         static::deleting(function ($category) {
-            $category->services()->delete();  // Soft delete related comments
+            $category->services()->delete();
         });
     }
 

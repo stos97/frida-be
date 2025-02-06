@@ -10,6 +10,14 @@ class Addition extends Model
 {
     use SoftDeletes;
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($addition) {
+            $addition->services()->detach();
+        });
+    }
+
     /**
      * @var string[]
      */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Service;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,7 +25,15 @@ class ServiceUpdateRequest extends FormRequest
     {
         return [
             'name' => ['string'],
-            'category_id' => [Rule::exists('categories', 'id')],
+            'category_id' => [
+                Rule::exists('categories', 'id'),
+                function ($attribute, $value, $fail) {
+                    $category = Category::withTrashed()->find($value);
+                    if ($category && $category->trashed()) {
+                        $fail('The selected category has been deleted.');
+                    }
+                },
+            ],
         ];
     }
 }

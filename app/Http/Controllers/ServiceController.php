@@ -33,7 +33,7 @@ class ServiceController extends Controller
     {
         $service->update($request->validated());
 
-        return new ServiceResource($service);
+        return new ServiceResource($service->load('category'));
     }
 
     public function destroy(Service $service)
@@ -46,7 +46,7 @@ class ServiceController extends Controller
     public function addAdditionsService(Request $request, Service $service)
     {
         $data = $request->validate([
-            'additions' => ['required', 'array'],
+            'additions' => ['array'],
         ]);
 
         $service->additions()->sync($data['additions']);
