@@ -10,9 +10,10 @@ use Illuminate\Http\Request;
 
 class AdditionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return AdditionResource::collection(Addition::all());
+
+        return AdditionResource::collection(Addition::filter($request->only('service_id'))->get());
     }
 
     public function show(Addition $addition)
