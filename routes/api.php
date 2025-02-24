@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceWorkerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkerController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('additions', [AdditionController::class, 'store'])->name('additions.store');
     Route::put('additions/{addition}', [AdditionController::class, 'update'])->name('additions.update');
     Route::delete('additions/{addition}', [AdditionController::class, 'destroy'])->name('additions.destroy');
+
+    Route::get('workers', [WorkerController::class, 'index'])->name('workers.index');
+    Route::post('workers', [WorkerController::class, 'store'])->name('workers.store');
+    Route::delete('workers/{worker}', [WorkerController::class, 'destroy'])->name('workers.destroy');
 
     Route::post('worker-service/{worker}', [ServiceWorkerController::class, 'store'])->name('worker-service.store');
     Route::get('worker-service/{worker}', [ServiceWorkerController::class, 'index'])->name('worker-service.index');
