@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -44,5 +45,16 @@ class Service extends Model
             ->belongsToMany(User::class, 'service_worker', 'service_id', 'worker_id')
             ->using(ServiceWorker::class)
             ->withPivot(['price', 'minutesNeeded']);
+    }
+
+    public function scopeFilter(Builder $query, array $filters = []): Builder
+    {
+        $query->when($filters['worker_id'] ?? false, function($query, $workerId) {
+            $excludedServicesIds = ServiceWorker::where('worker_id', $workerId)->pluck('service_id');
+
+            return $query->whereNotIn('id', $excludedServicesIds)->get();
+        });
+
+        return $query;
     }
 }

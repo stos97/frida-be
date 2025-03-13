@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ServiceWorker\ServiceWorkerStoreRequest;
+use App\Models\Service;
 use App\Models\ServiceWorker;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -58,6 +59,18 @@ class ServiceWorkerController extends Controller
 
         return response()->json([
             'data' => $services,
+        ]);
+    }
+
+    public function show(User $worker, Service $service)
+    {
+        $serviceWorker = ServiceWorker::with('service', 'service.category', 'additions', 'additions.addition')
+            ->where('worker_id', $worker->id)
+            ->where('service_id', $service->id)
+            ->firstOrFail();
+
+        return response()->json([
+            'data' => $serviceWorker,
         ]);
     }
 }

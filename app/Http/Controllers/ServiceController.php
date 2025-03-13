@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::with('category', 'additions')->get();
+        $services = Service::with('category', 'additions')->filter($request->only('worker_id'))->get();
 
         return ServiceResource::collection($services);
     }

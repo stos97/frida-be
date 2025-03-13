@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('worker-service/{worker}', [ServiceWorkerController::class, 'store'])->name('worker-service.store');
     Route::get('worker-service/{worker}', [ServiceWorkerController::class, 'index'])->name('worker-service.index');
     Route::delete('worker-service/{worker}', [ServiceWorkerController::class, 'destroy'])->name('worker-service.destroy');
+    Route::get('worker/{worker}/service/{service}', [ServiceWorkerController::class, 'show'])->name('worker-service.show');
 });
 
 Route::get('/user', function (Request $request) {
