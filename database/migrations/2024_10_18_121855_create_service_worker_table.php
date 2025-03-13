@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('service_id')->constrained('services')->cascadeOnDelete();
             $table->integer('price');
             $table->integer('minutesNeeded');
+            $table->timestamps();
         });
     }
 
