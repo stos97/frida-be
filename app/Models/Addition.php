@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin IdeHelperAddition
+ */
 class Addition extends Model
 {
     use SoftDeletes;
@@ -14,9 +17,7 @@ class Addition extends Model
     protected static function boot()
     {
         parent::boot();
-        static::deleting(function ($addition) {
-            $addition->services()->detach();
-        });
+        static::deleting(fn (Addition $addition) => $addition->services()->detach());
     }
 
     /**

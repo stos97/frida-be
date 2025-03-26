@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin IdeHelperCategory
+ */
 class Category extends Model
 {
     use SoftDeletes;
@@ -13,9 +16,7 @@ class Category extends Model
     protected static function boot()
     {
         parent::boot();
-        static::deleting(function ($category) {
-            $category->services()->delete();
-        });
+        static::deleting(fn (Category $category) => $category->services()->delete());
     }
 
     /**

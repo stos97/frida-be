@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin IdeHelperService
+ */
 class Service extends Model
 {
     use SoftDeletes;
@@ -47,6 +50,11 @@ class Service extends Model
             ->withPivot(['price', 'minutesNeeded']);
     }
 
+    /**
+     * @param Builder $query
+     * @param array $filters
+     * @return Builder
+     */
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
         $query->when($filters['worker_id'] ?? false, function($query, $workerId) {
