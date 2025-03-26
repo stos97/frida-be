@@ -28,23 +28,15 @@ class Addition extends Model
         'type',
     ];
 
-    /**
-     * @return BelongsToMany
-     */
     public function services(): BelongsToMany
     {
         return $this->belongsToMany(Service::class);
     }
 
-    /**
-     * @param Builder $query
-     * @param array $filters
-     * @return Builder
-     */
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
-        $query->when($filters['service_id'] ?? false, function($query, $serviceId) {
-            $excludedAdditionsIds = Addition::whereHas('services', fn($q) => $q->where('service_id', $serviceId))->pluck('id');
+        $query->when($filters['service_id'] ?? false, function ($query, $serviceId) {
+            $excludedAdditionsIds = Addition::whereHas('services', fn ($q) => $q->where('service_id', $serviceId))->pluck('id');
 
             return $query->whereNotIn('id', $excludedAdditionsIds)->get();
         });

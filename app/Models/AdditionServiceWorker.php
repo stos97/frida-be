@@ -17,20 +17,14 @@ class AdditionServiceWorker extends Model
         'service_worker_id',
         'addition_id',
         'price',
-        'minutesNeeded'
+        'minutesNeeded',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function serviceWorker(): BelongsTo
     {
         return $this->belongsTo(ServiceWorker::class, 'service_worker_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function addition(): BelongsTo
     {
         return $this->belongsTo(Addition::class);

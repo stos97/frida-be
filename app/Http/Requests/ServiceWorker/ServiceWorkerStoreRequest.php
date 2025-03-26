@@ -30,15 +30,15 @@ class ServiceWorkerStoreRequest extends FormRequest
             'additions.*.addition_id' => [
                 'integer',
                 'exists:additions,id',
-                function ($attribute, $value, $fail)  {
+                function ($attribute, $value, $fail) {
 
-                    if (!DB::table('addition_service')
+                    if (! DB::table('addition_service')
                         ->where('service_id', $this->request->get('service_id'))
                         ->where('addition_id', $value)
                         ->exists()) {
                         $fail('The selected addition is not associated with the selected service.');
                     }
-                }
+                },
             ],
             'additions.*.price' => ['integer'],
             'additions.*.minutesNeeded' => ['integer'],

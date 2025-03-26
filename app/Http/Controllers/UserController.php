@@ -15,7 +15,7 @@ class UserController extends Controller
         return UserResource::collection(
             User::filter(
                 $request->only([
-                    'role'
+                    'role',
                 ])
             )->get()
         );

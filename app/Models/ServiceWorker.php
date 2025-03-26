@@ -21,25 +21,16 @@ class ServiceWorker extends Pivot
         'minutesNeeded',
     ];
 
-    /**
-     * @return HasMany
-     */
     public function additions(): HasMany
     {
         return $this->hasMany(AdditionServiceWorker::class, 'service_worker_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function worker(): BelongsTo
     {
         return $this->belongsTo(User::class, 'worker_id');

@@ -23,25 +23,16 @@ class Service extends Model
         'category_id',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function additions(): BelongsToMany
     {
         return $this->belongsToMany(Addition::class);
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function workers(): BelongsToMany
     {
         return $this
@@ -50,14 +41,9 @@ class Service extends Model
             ->withPivot(['price', 'minutesNeeded']);
     }
 
-    /**
-     * @param Builder $query
-     * @param array $filters
-     * @return Builder
-     */
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
-        $query->when($filters['worker_id'] ?? false, function($query, $workerId) {
+        $query->when($filters['worker_id'] ?? false, function ($query, $workerId) {
             $excludedServicesIds = ServiceWorker::where('worker_id', $workerId)->pluck('service_id');
 
             return $query->whereNotIn('id', $excludedServicesIds)->get();

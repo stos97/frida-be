@@ -26,9 +26,6 @@ class Category extends Model
         'name',
     ];
 
-    /**
-     * @return HasMany
-     */
     public function services(): HasMany
     {
         return $this->hasMany(Service::class);

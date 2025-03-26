@@ -19,6 +19,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     const ADMIN = 'admin';
+
     const WORKER = 'worker';
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -61,9 +62,6 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function services(): BelongsToMany
     {
         return $this
@@ -73,14 +71,9 @@ class User extends Authenticatable
 
     }
 
-    /**
-     * @param Builder $query
-     * @param array $filters
-     * @return Builder
-     */
     public function scopeFilter(Builder $query, array $filters = []): Builder
     {
-        $query->when($filters['role'] ?? false, fn($query, $role) => $query->where('role', $role));
+        $query->when($filters['role'] ?? false, fn ($query, $role) => $query->where('role', $role));
 
         return $query;
     }
