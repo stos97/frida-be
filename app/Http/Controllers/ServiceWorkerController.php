@@ -49,14 +49,14 @@ class ServiceWorkerController extends Controller
         $serviceWorker->additions()->delete();
 
         if ($data['additions'] ?? false) {
-        foreach ($data['additions'] as $addition) {
-            $serviceWorker->additions()->create([
-                'service_worker_id' => $serviceWorker->id,
-                'addition_id' => $addition['addition_id'],
-                'price' => $addition['price'],
-                'minutesNeeded' => $addition['minutesNeeded'],
-            ]);
-        }
+            foreach ($data['additions'] as $addition) {
+                $serviceWorker->additions()->create([
+                    'service_worker_id' => $serviceWorker->id,
+                    'addition_id' => $addition['addition_id'],
+                    'price' => $addition['price'],
+                    'minutesNeeded' => $addition['minutesNeeded'],
+                ]);
+            }
         }
 
         return response()->noContent();
@@ -66,7 +66,7 @@ class ServiceWorkerController extends Controller
     {
         $data = $request->validate([
             'service_id' => ['required', 'exists:services,id', function ($attribute, $value, $fail) use ($worker) {
-                if (!DB::table('service_worker')
+                if (! DB::table('service_worker')
                     ->where('service_id', $value)
                     ->where('worker_id', $worker->id)
                     ->exists()) {
