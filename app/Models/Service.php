@@ -16,7 +16,7 @@ class Service extends Model
     use SoftDeletes;
 
     /**
-     * @var string[]
+     * @var list<string>
      */
     protected $fillable = [
         'name',

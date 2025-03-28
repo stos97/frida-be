@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Addition;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Addition
+ */
 class AdditionResource extends JsonResource
 {
     /**

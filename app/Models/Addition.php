@@ -21,7 +21,7 @@ class Addition extends Model
     }
 
     /**
-     * @var string[]
+     * @var list<string>
      */
     protected $fillable = [
         'name',
