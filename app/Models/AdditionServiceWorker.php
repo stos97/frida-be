@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class AdditionServiceWorker extends Model
 {
     /**
-     * @var string[]
+     * @var list<string>
      */
     protected $fillable = [
         'service_worker_id',

@@ -14,7 +14,7 @@ class ServiceWorker extends Pivot
     protected $table = 'service_worker';
 
     /**
-     * @var string[]
+     * @var list<string>
      */
     protected $fillable = [
         'price',
